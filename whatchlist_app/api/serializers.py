@@ -1,34 +1,50 @@
 from rest_framework import serializers
-from whatchlist_app.models import Movie
+from whatchlist_app.models import *
 
-# --------------------------------------serializers.ModelSerializer class--------------------------------- #
 
-class MovieSerializer(serializers.ModelSerializer):
+''' ------------------------------------------ Watch list Serializer ----------------------------------------'''
 
-    name_len = serializers.SerializerMethodField()   # extra field except model
+class WatchListSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Movie
+        model = Watchlist
         fields = '__all__'
 
-#   To Add Additional field into serializer which is not in models
-    def get_name_len(self,obj):
-        return obj.name+ '  >> ' + 'rating'
+
+class StreamPlatformSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StreamPlatform
+        fields = '__all__'
+
+
+''' --------------------------------------serializers.ModelSerializer class--------------------------------- '''
+
+# class MovieSerializer(serializers.ModelSerializer):
+
+#     name_len = serializers.SerializerMethodField()   # extra field except model
+
+#     class Meta:
+#         model = Movie
+#         fields = '__all__'
+
+# #   To Add Additional field into serializer which is not in models
+#     def get_name_len(self,obj):
+#         return obj.name+ '  >> ' + 'rating'
     
-#   Field Level Validation  (validate_field)
-    def validate_name(self, value):
-        if len(value) <= 1:
-            raise serializers.ValidationError("Name lenght should be gt 1")
-        return value
+# #   Field Level Validation  (validate_field)
+#     def validate_name(self, value):
+#         if len(value) <= 1:
+#             raise serializers.ValidationError("Name lenght should be gt 1")
+#         return value
 
-#   Object Level Validation
-    def validate(self, data):
-        if data['name'] == data['description']:
-            raise serializers.ValidationError("Name and Des should be different...")
-        return data
+# #   Object Level Validation
+#     def validate(self, data):
+#         if data['name'] == data['description']:
+#             raise serializers.ValidationError("Name and Des should be different...")
+#         return data
 
 
-# --------------------------------------serializers.Serializer class---------------------------------  #
+''' --------------------------------------serializers.Serializer class---------------------------------  '''
 #   Validators Functions
 # def check_name(value):
 #     if value == 'Jay':
