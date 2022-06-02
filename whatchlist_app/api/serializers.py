@@ -5,10 +5,15 @@ from whatchlist_app.models import Movie
 
 class MovieSerializer(serializers.ModelSerializer):
 
+    name_len = serializers.SerializerMethodField()   # extra field except model
+
     class Meta:
         model = Movie
         fields = '__all__'
 
+#   To Add Additional field into serializer which is not in models
+    def get_name_len(self,obj):
+        return obj.name+ '  >> ' + 'rating'
     
 #   Field Level Validation  (validate_field)
     def validate_name(self, value):
