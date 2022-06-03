@@ -12,15 +12,12 @@ class WatchListSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 '''--------- Custom Field Class --------------'''
-class MyCustom(serializers.RelatedField):
-    def to_representation(self, value):
-        return f'{value.title}  ||  {value.created}'
+# class MyCustom(serializers.RelatedField):
+#     def to_representation(self, value):
+#         return f'{value.title}  ||  {value.created}'
 
-class StreamPlatformSerializer(serializers.ModelSerializer):
+class StreamPlatformSerializer(serializers.HyperlinkedModelSerializer):
     
-    '''----To Get all data from watch list----'''
-    # watchlist = WatchListSerializer(many=True,read_only=True)
-
     ''' To only get name which is set on __str__ function of watchlist'''
     # watchlist = serializers.StringRelatedField(many=True)
 
@@ -32,7 +29,10 @@ class StreamPlatformSerializer(serializers.ModelSerializer):
     # )
 
     '''------------Custom Related Field---------------'''
-    watchlist = MyCustom(many=True,read_only=True)
+    # watchlist = MyCustom(many=True,read_only=True)
+
+    '''----To Get all data from watch list----'''
+    watchlist = WatchListSerializer(many=True,read_only=True)
 
     class Meta:
         model = StreamPlatform

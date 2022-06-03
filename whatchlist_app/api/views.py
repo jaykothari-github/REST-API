@@ -142,7 +142,7 @@ class StreamPlListAV(APIView):
 
     def get(self,request):
         wl = StreamPlatform.objects.all()
-        serial = StreamPlatformSerializer(wl,many=True)
+        serial = StreamPlatformSerializer(wl,many=True,context={'request':request})
         return Response(serial.data)
 
     def post(self,request):
@@ -158,7 +158,7 @@ class StreamPlDetailAV(APIView):
     def get(self,request,pk):
         try:
             wl = StreamPlatform.objects.get(id=pk)
-            serial = StreamPlatformSerializer(wl)
+            serial = StreamPlatformSerializer(wl,context={'request':request})
             return Response(serial.data)
         except:
             return Response('Invalid Data ID',status=status.HTTP_404_NOT_FOUND)

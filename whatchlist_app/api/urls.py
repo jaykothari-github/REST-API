@@ -10,6 +10,6 @@ urlpatterns = [
     path('list/',views.WatchListAV.as_view(),name='list'),
     path('<int:pk>',views.WatchDetailAV.as_view(),name='detail'),
     path('srmpl-list/',views.StreamPlListAV.as_view(),name='srmpl-list'),
-    path('srmpl/<int:pk>',views.StreamPlDetailAV.as_view(),name='srmpl-detail'),
+    path('srmpl/<int:pk>',views.StreamPlDetailAV.as_view(),name='streamplatform-detail'),
 
 ]
