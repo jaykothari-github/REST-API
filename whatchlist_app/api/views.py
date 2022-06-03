@@ -109,3 +109,73 @@ class WatchListAV(APIView):
             return Response(serial.data,status=status.HTTP_201_CREATED)
         else:
             return Response(serial.errors)
+
+class WatchDetailAV(APIView):
+
+    def get(self,request,pk):
+        try:
+            wl = Watchlist.objects.get(id=pk)
+            serial = WatchListSerializer(wl)
+            return Response(serial.data)
+        except:
+            return Response('Invalid Data ID',status=status.HTTP_404_NOT_FOUND)
+
+    def put(self,request,pk):
+        wl = Watchlist.objects.get(id=pk)
+        serial = WatchListSerializer(instance=wl,data=request.data)
+        if serial.is_valid():
+            serial.save()
+            return Response(serial.data,status=status.HTTP_201_CREATED)
+        else:
+            return Response(serial.errors)
+
+    def delete(self,request,pk):
+        try:
+            wl = Watchlist.objects.get(id=pk)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        wl.delete()
+        return Response('Data Deleted',status=status.HTTP_404_NOT_FOUND)
+
+
+class StreamPlListAV(APIView):
+
+    def get(self,request):
+        wl = StreamPlatform.objects.all()
+        serial = StreamPlatformSerializer(wl,many=True)
+        return Response(serial.data)
+
+    def post(self,request):
+        serial = StreamPlatformSerializer(data=request.data)
+        if serial.is_valid():
+            serial.save()
+            return Response(serial.data,status=status.HTTP_201_CREATED)
+        else:
+            return Response(serial.errors)
+
+class StreamPlDetailAV(APIView):
+
+    def get(self,request,pk):
+        try:
+            wl = StreamPlatform.objects.get(id=pk)
+            serial = StreamPlatformSerializer(wl)
+            return Response(serial.data)
+        except:
+            return Response('Invalid Data ID',status=status.HTTP_404_NOT_FOUND)
+
+    def put(self,request,pk):
+        wl = StreamPlatform.objects.get(id=pk)
+        serial = StreamPlatformSerializer(instance=wl,data=request.data)
+        if serial.is_valid():
+            serial.save()
+            return Response(serial.data,status=status.HTTP_201_CREATED)
+        else:
+            return Response(serial.errors)
+
+    def delete(self,request,pk):
+        try:
+            wl = StreamPlatform.objects.get(id=pk)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        wl.delete()
+        return Response('Data Deleted',status=status.HTTP_404_NOT_FOUND)
