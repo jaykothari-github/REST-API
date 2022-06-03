@@ -1,3 +1,4 @@
+from asyncore import read
 from rest_framework import serializers
 from whatchlist_app.models import *
 
@@ -10,8 +11,29 @@ class WatchListSerializer(serializers.ModelSerializer):
         model = Watchlist
         fields = '__all__'
 
+'''--------- Custom Field Class --------------'''
+class MyCustom(serializers.RelatedField):
+    def to_representation(self, value):
+        return f'{value.title}  ||  {value.created}'
 
 class StreamPlatformSerializer(serializers.ModelSerializer):
+    
+    '''----To Get all data from watch list----'''
+    # watchlist = WatchListSerializer(many=True,read_only=True)
+
+    ''' To only get name which is set on __str__ function of watchlist'''
+    # watchlist = serializers.StringRelatedField(many=True)
+
+    '''------To Get Hyperlinks of data--------  '''
+    # watchlist = serializers.HyperlinkedRelatedField(
+    #     many=True,
+    #     read_only=True,
+    #     view_name='detail'
+    # )
+
+    '''------------Custom Related Field---------------'''
+    watchlist = MyCustom(many=True,read_only=True)
+
     class Meta:
         model = StreamPlatform
         fields = '__all__'
