@@ -11,5 +11,7 @@ urlpatterns = [
     path('<int:pk>',views.WatchDetailAV.as_view(),name='detail'),
     path('srmpl-list/',views.StreamPlListAV.as_view(),name='srmpl-list'),
     path('srmpl/<int:pk>',views.StreamPlDetailAV.as_view(),name='streamplatform-detail'),
+    path('review/',views.ReviewList.as_view(),name='review-list'),
+    path('review/<int:pk>',views.ReviewDetail.as_view(),name='review-detail'),
 
 ]
