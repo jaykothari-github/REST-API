@@ -2,10 +2,18 @@ from rest_framework import serializers
 from whatchlist_app.models import *
 
 
+class ReviewSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Review
+        fields = '__all__'
+
+
 ''' ------------------------------------------ Watch list Serializer ----------------------------------------'''
 
 class WatchListSerializer(serializers.ModelSerializer):
 
+    reviews = ReviewSerializer(many=True,read_only=True)
     class Meta:
         model = Watchlist
         fields = '__all__'
@@ -14,6 +22,7 @@ class WatchListSerializer(serializers.ModelSerializer):
 # class MyCustom(serializers.RelatedField):
 #     def to_representation(self, value):
 #         return f'{value.title}  ||  {value.created}'
+
 
 class StreamPlatformSerializer(serializers.HyperlinkedModelSerializer):
     
